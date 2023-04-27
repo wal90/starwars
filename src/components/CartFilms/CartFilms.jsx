@@ -69,7 +69,7 @@ const poster = [
 
 ]
 
-const CartFilms = ({title, director, episode, characters, id}) =>{
+const CartFilms = ({title, director, episode, url, id}) =>{
 
 
     return(
@@ -81,7 +81,7 @@ const CartFilms = ({title, director, episode, characters, id}) =>{
                                 <h5>Episode: {episode}</h5> 
                                 <h6>Director: {director}</h6>
                                 {/* <p>{characters.map(ch=>ch)}</p> */}
-                                <Link to={'/characters/' + id}><p>{characters}</p></Link> 
+                                <Link to={'/characters/' + id}><p>{url}</p></Link> 
                             </div>
 
     )

@@ -1,16 +1,20 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  getDetail } from "../redux/slices/filmSlice";
-import { useParams } from "react-router-dom";
+import {  getDetails } from "../redux/slices/filmSlice";
+ import { useParams } from "react-router-dom";
+
 
 const Characters = () =>{
 
     const dispatch = useDispatch();
-  const characters = useSelector((state) => state.films.detail);
+  // const characters = useSelector((state) => state.films.detail);
+  const characters= useSelector((state) => state.films.characters);
+  const status = useSelector((state) => state.films.status);
+  const error = useSelector((state) => state.films.error);
 
-const { id } = useParams()
+   
   useEffect(() => {
-    dispatch( getDetail(id));
+    dispatch( getDetails());
   }, [dispatch]);
 
     // console.log(getCha)

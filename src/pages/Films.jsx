@@ -24,7 +24,7 @@ const Films = () =>{
                     films?.map((film, index) =>{
                         return (
                           <div key={index}>
-                            <CartFilms title={film.title} episode={film.episode} director={film.director} characters={film.characters}/>
+                            <CartFilms title={film.title} episode={film.episode} director={film.director} url={film.url} characters={film.characters}/>
 
                             {/* characters={film.characters.map(ch=> ch)} */}
                            

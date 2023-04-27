@@ -1,10 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
     list: [],
     characters: [],
-    detail:[]
+    detail:[],
+    film: null, 
+    status: 'idle', 
+    error: null
 }
 
 export const filmSlice = createSlice({
@@ -15,11 +18,13 @@ export const filmSlice = createSlice({
             const allFilms = action.payload.map((film)=>{
                const obteinFilmData = film;
                const dataFilm ={
-                id: obteinFilmData.episode_id,
+               
                 title: obteinFilmData.title,
                 episode: obteinFilmData.episode_id,
                 director: obteinFilmData.director,
-                characters: obteinFilmData.characters
+                // characters: obteinFilmData.characters,
+                url: obteinFilmData.url,
+                
                 // characters: getCharacters()
                }
                return dataFilm
@@ -35,10 +40,6 @@ export const filmSlice = createSlice({
             const all = action.payload.map((film)=>{
                const obteinFilmData = film;
                const dataFilm ={
-                id: obteinFilmData.episode_id,
-                title: obteinFilmData.title,
-                episode: obteinFilmData.episode_id,
-                director: obteinFilmData.director,
                 characters: obteinFilmData.characters
                 // characters: getCharacters()
                }
@@ -62,7 +63,20 @@ export const filmSlice = createSlice({
 
 
 
-    }
+    }, extraReducers: (builder) => {
+        builder
+          .addCase(getDetails .pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(getDetails.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.characters = action.payload;
+          })
+          .addCase(getDetails.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          });
+      },
 })
 
 export const { getFilms, getAllCharacters, getFilmsDetail } = filmSlice.actions;
@@ -72,19 +86,26 @@ export const  getAllFilms = (obj) => async(dispatch) =>{
     await axios.get("https://swapi.dev/api/films/", obj)
     .then((response) =>{
        dispatch( getFilms(response.data.results))
-    //    dispatch(getAllCharacters(response.data.results.map(cha=> cha.characters)));
+        // dispatch(getAllCharacters(response.data.results.map(cha=> cha.url)));
     })
     .catch((error)=> console.log(error))
 }
 
-export const  getDetail= (id) => async(dispatch) =>{
-    await axios.get(`https://swapi.dev/api/films/${id}`)
-    .then((response) =>{
-    //    dispatch( getFilmsDetail(response.data))
-       dispatch(getAllCharacters(response.data.map(cha=> cha.characters)));
-    })
-    .catch((error)=> console.log(error))
-}
+// export const  getDetail= (id) => async(dispatch) =>{
+//     await axios.get('https://swapi.dev/api/films/' + id)
+//     .then((response) =>{
+//     dispatch( getFilmsDetail(response.data))
+//     // dispatch(getAllCharacters(response.data.map(cha=> cha.characters)));
+//     })
+//     .catch((error)=> console.log(error))
+// }
+
+export const getDetails = createAsyncThunk('films/getDetails', async (filmId) => {
+    const response = await axios.get(`https://swapi.dev/api/films/${filmId}/`);
+    return response.data.characters;
+  });
+
+
 
 
 // export const getCharacters = (id) => async (dispatch) => {
