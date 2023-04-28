@@ -69,8 +69,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 // ]
 
-const CartFilms = ({title, director, episode, url, id}) =>{
-
+const CartFilms = ({title, director, episode, url, }) =>{
+ const id = Number(url.split("/").slice(-2)[0]);
 
     return(
        
@@ -81,7 +81,7 @@ const CartFilms = ({title, director, episode, url, id}) =>{
                                 <h5>Episode: {episode}</h5> 
                                 <h6>Director: {director}</h6>
                                 {/* <p>{characters./charactersmap(ch=>ch)}</p> */}
-                                <Link to={`/characters/${id}` }><p>{url}</p></Link> 
+                                <Link to={"/characters/" + id }><button>Characters</button></Link> 
                             </div>
 
     )

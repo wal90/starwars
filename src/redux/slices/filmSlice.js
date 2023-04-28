@@ -15,20 +15,23 @@ export const filmSlice = createSlice({
     initialState,
     reducers:{
         getFilms( state, action) {
-            const allFilms = action.payload.map((film)=>{
-               const obteinFilmData = film;
-               const dataFilm ={
-               id: obteinFilmData.episode_id,
-                title: obteinFilmData.title,
-                episode: obteinFilmData.episode_id,
-                director: obteinFilmData.director,
-                // characters: obteinFilmData.characters,
-                url: obteinFilmData.url,
+            const allFilms = action.payload
+            
+            
+            // .map((film)=>{
+            //    const obteinFilmData = film;
+            //    const dataFilm ={
+            //    id: obteinFilmData.episode_id,
+            //     title: obteinFilmData.title,
+            //     episode: obteinFilmData.episode_id,
+            //     director: obteinFilmData.director,
+            //     // characters: obteinFilmData.characters,
+            //     url: obteinFilmData.url,
                 
-                // characters: getCharacters()
-               }
-               return dataFilm
-            })
+            //     // characters: getCharacters()
+            //    }
+            //    return dataFilm
+            // })
 
             if(allFilms.length){
                 state.list = allFilms
@@ -36,22 +39,28 @@ export const filmSlice = createSlice({
 
             
         },
-        getFilmsDetail( state, action) {
-            const all = action.payload.map((film)=>{
-               const obteinFilmData = film;
-               const dataFilm ={
-                characters: obteinFilmData.characters
-                // characters: getCharacters()
-               }
-               return dataFilm
-            })
+        // getFilmsDetail( state, action) {
+        //     const all = action.payload.map((film)=>{
+        //        const obteinFilmData = film;
+        //        const dataFilm ={
+        //         characters: obteinFilmData.characters.map((ch=>{
+        //             return{
+        //                 name: ch.name,
+        //                 eye_color: ch.eye_color,
+        //                 gender: ch.gender
+        //             }
+        //         }))
+        //         // characters: getCharacters()
+        //        }
+        //        return dataFilm
+        //     })
 
-            if(all.length){
-                state.detail = all
-            }
+        //     if(all.length){
+        //         state.detail = all
+        //     }
 
             
-        },
+        // },
 
         getAllCharacters(state, action){
             const allCha = action.payload
@@ -85,7 +94,15 @@ export default filmSlice.reducer
 export const  getAllFilms = (obj) => async(dispatch) =>{
     await axios.get("https://swapi.dev/api/films/", obj)
     .then((response) =>{
-       dispatch( getFilms(response.data.results))
+       dispatch( getFilms(response.data.results.map(r=>{
+        return{
+            title:r.title,
+            episode: r.episode_id,
+            director: r.director,
+            url: r.url,
+
+        }
+       })))
         // dispatch(getAllCharacters(response.data.results.map(cha=> cha.url)));
     })
     .catch((error)=> console.log(error))
@@ -100,10 +117,25 @@ export const  getAllFilms = (obj) => async(dispatch) =>{
 //     .catch((error)=> console.log(error))
 // }
 
-export const getDetails = createAsyncThunk('films/getDetails', async (id) => {
+export const getDetails = createAsyncThunk('films/getDetails', async (id ) => {
     const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
-    return response.data.characters;
+    const charactersUrls =  response.data.characters;
+    const allCharacters =  await Promise.all(
+        charactersUrls.map(async (characterUrl) => {
+          const characterDetail = await axios.get(characterUrl);
+          return {
+            name: characterDetail.data.name,
+            eye_color: characterDetail.data.eye_color,
+            gender: characterDetail.data.gender,
+          }
+        
+          
+       
+        }))
+    return allCharacters
   });
+
+
 
 
 
