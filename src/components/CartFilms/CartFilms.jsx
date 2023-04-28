@@ -41,33 +41,33 @@ import { useDispatch, useSelector } from "react-redux";
 // }
 
 
-const poster = [
-    {
-        id: 1,
-        poster: episode1
-    },
-    {
-        id: 2,
-        poster: episode2
-    },
-    {
-        id: 3,
-        poster: episode3
-    },
-    {
-        id: 4,
-        poster: episode4
-    },
-    {
-        id: 5,
-        poster: episode5
-    },
-    {
-        id: 6,
-        poster: episode6
-    }
+// const poster = [
+//     {
+//         id: 1,
+//         poster: episode1
+//     },
+//     {
+//         id: 2,
+//         poster: episode2
+//     },
+//     {
+//         id: 3,
+//         poster: episode3
+//     },
+//     {
+//         id: 4,
+//         poster: episode4
+//     },
+//     {
+//         id: 5,
+//         poster: episode5
+//     },
+//     {
+//         id: 6,
+//         poster: episode6
+//     }
 
-]
+// ]
 
 const CartFilms = ({title, director, episode, url, id}) =>{
 
@@ -80,8 +80,8 @@ const CartFilms = ({title, director, episode, url, id}) =>{
                                 <h2>{title}</h2>
                                 <h5>Episode: {episode}</h5> 
                                 <h6>Director: {director}</h6>
-                                {/* <p>{characters.map(ch=>ch)}</p> */}
-                                <Link to={'/characters/' + id}><p>{url}</p></Link> 
+                                {/* <p>{characters./charactersmap(ch=>ch)}</p> */}
+                                <Link to={`/characters/${id}` }><p>{url}</p></Link> 
                             </div>
 
     )

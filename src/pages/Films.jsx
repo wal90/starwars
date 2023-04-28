@@ -12,7 +12,7 @@ const Films = () =>{
 
     const dispatch = useDispatch()
     useEffect(()=>{
-       dispatch(getAllFilms());
+       dispatch(getAllFilms(1));
     },[])
 
     

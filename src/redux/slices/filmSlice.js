@@ -18,7 +18,7 @@ export const filmSlice = createSlice({
             const allFilms = action.payload.map((film)=>{
                const obteinFilmData = film;
                const dataFilm ={
-               
+               id: obteinFilmData.episode_id,
                 title: obteinFilmData.title,
                 episode: obteinFilmData.episode_id,
                 director: obteinFilmData.director,
@@ -100,8 +100,8 @@ export const  getAllFilms = (obj) => async(dispatch) =>{
 //     .catch((error)=> console.log(error))
 // }
 
-export const getDetails = createAsyncThunk('films/getDetails', async (filmId) => {
-    const response = await axios.get(`https://swapi.dev/api/films/${filmId}/`);
+export const getDetails = createAsyncThunk('films/getDetails', async (id) => {
+    const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
     return response.data.characters;
   });
 
