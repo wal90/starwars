@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  getDetails, filterByColor } from "../redux/slices/filmSlice";
+import {  getDetails, getEye } from "../redux/slices/filmSlice";
 import CartCharacters from "../components/CartCharacters/CartCharacters";
  import { useParams } from "react-router-dom";
  import s from "../styles/characters.module.css"
@@ -18,12 +18,14 @@ const Characters = () =>{
   // const [eyeData, setEyeData] = useState(characters)
 
   const handleFilter = (e) => {
-    dispatch(filterByColor(e.target.value))
+    dispatch(getEye(e.target.value))
   }
+
 
 
   useEffect(() => {
     dispatch( getDetails(id));
+    
   }, [dispatch, id]);
 
     // console.log(getCha)
