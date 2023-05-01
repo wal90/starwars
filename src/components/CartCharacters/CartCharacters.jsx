@@ -1,4 +1,8 @@
 import React from "react";
+import { FaRegEye } from "react-icons/fa";
+import { SiMicrogenetics } from "react-icons/si";
+import s from "../../styles/cartChar.module.css"
+
 
 
 
@@ -10,14 +14,15 @@ const CartCharacters = ({name, eye_color, gender}) =>{
     return(
        
               
-                            <div>
-                                {/* <img src={id === episode ? poster : ""}  /> */}
+                            <div className={s.containCha}>
+                        
                                 <h2>{name}</h2>
-                                <h5>{eye_color}</h5>
-                                <h5>{gender}</h5>
-                                {/* <h5>Episode: {episode}</h5> 
-                                <h6>Director: {director}</h6> */}
-                                {/* <p>{characters./charactersmap(ch=>ch)}</p> */}
+                                <div className={s.containTextC}>
+                                   <p> <FaRegEye/> Eye Color: {eye_color}</p>
+                                    <p> <SiMicrogenetics/> Gender: {gender}</p> 
+                                </div>
+                                
+                          
                                
                             </div>
 

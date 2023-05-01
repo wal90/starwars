@@ -14,7 +14,7 @@ function App() {
    <NavBar/>
       <Routes>
         {/* <Route path="/" element={<NavBar/>}> */}
-          <Route path="/home" element={<Home/>}/>
+          <Route path="/" element={<Home/>}/>
           <Route path="/films" element={<Films/>}/>
           <Route path="characters/:id" element={<Characters/>}/>
         {/* </Route> */}

@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
     list: [],
     characters: [],
+    eyeFilter:[],
     detail:[],
     film: null, 
     status: 'idle', 
@@ -84,11 +85,32 @@ export const filmSlice = createSlice({
           .addCase(getDetails.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
+          })
+          .addCase(filterByColor.pending, (state) => {
+            state.status = "loading";
+          })
+          .addCase(filterByColor.fulfilled, (state, action) => {
+            state.status = "succeeded";
+            state.filterByColor = action.payload;
+
+            // const eyeColor = state.filterByColor 
+
+
+           
+            // const eyesFiltered = action.payload === "all" ? eyeColor : eyeColor.filter(s => s.characters.find(f=> f.eye_color === action.payload))
+            // console.log(eyesFiltered) 
+           
+            // state.filterByColor = eyesFiltered              
+            
+          })
+          .addCase(filterByColor.rejected, (state, action) => {
+            state.status = "failed";
+            state.error = action.error.message;
           });
       },
 })
 
-export const { getFilms, getAllCharacters, getFilmsDetail } = filmSlice.actions;
+export const { getFilms, getAllCharacters, getFilmsDetail,  } = filmSlice.actions;
 export default filmSlice.reducer
 
 export const  getAllFilms = (obj) => async(dispatch) =>{
@@ -132,8 +154,42 @@ export const getDetails = createAsyncThunk('films/getDetails', async (id ) => {
           
        
         }))
+        
     return allCharacters
   });
+
+
+  export const filterByColor = createAsyncThunk('films/filterByColor', async (eyeColor) => {
+    // const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
+    // const characters =  response.data.characters.map(e=>{
+    //   return {
+    //             eye_color: characters.data.eye_color,
+    //           }
+    // });
+
+    const response = await axios.get("https://swapi.dev/api/people/", {
+      params: {
+        search: "",
+        eye_color: eyeColor,
+      },
+    });
+    return response.data.results;
+
+
+    // const allCharacters =  await Promise.all(
+    //     charactersUrls.map(async (characterUrl) => {
+    //       const characterDetail = await axios.get(characterUrl);
+    //       return {
+    //         eye_color: characterDetail.data.eye_color,
+    //       }
+        
+          
+       
+    //     }))
+        
+    return characters
+  });
+
 
 
 
