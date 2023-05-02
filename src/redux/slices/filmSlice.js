@@ -4,7 +4,7 @@ import axios from "axios";
 const initialState = {
     list: [],
     characters: [],
-    eyeFilter:[],
+    eyeFilter:"",
     detail:[],
     film: null, 
     status: 'idle', 
@@ -15,67 +15,27 @@ export const filmSlice = createSlice({
     name: 'films',
     initialState,
     reducers:{
+        reset(state){
+          state.status =  'idle',
+          state.eyeFilter = '',
+          state.error  = null,
+          state.characters = ''
+        },
         getFilms( state, action) {
             const allFilms = action.payload
-            
-            
-            // .map((film)=>{
-            //    const obteinFilmData = film;
-            //    const dataFilm ={
-            //    id: obteinFilmData.episode_id,
-            //     title: obteinFilmData.title,
-            //     episode: obteinFilmData.episode_id,
-            //     director: obteinFilmData.director,
-            //     // characters: obteinFilmData.characters,
-            //     url: obteinFilmData.url,
-                
-            //     // characters: getCharacters()
-            //    }
-            //    return dataFilm
-            // })
-
             if(allFilms.length){
                 state.list = allFilms
             }
-
-            
         },
-        // getFilmsDetail( state, action) {
-        //     const all = action.payload.map((film)=>{
-        //        const obteinFilmData = film;
-        //        const dataFilm ={
-        //         characters: obteinFilmData.characters.map((ch=>{
-        //             return{
-        //                 name: ch.name,
-        //                 eye_color: ch.eye_color,
-        //                 gender: ch.gender
-        //             }
-        //         }))
-        //         // characters: getCharacters()
-        //        }
-        //        return dataFilm
-        //     })
-
-        //     if(all.length){
-        //         state.detail = all
-        //     }
-
-            
-        // },
-
         getAllCharacters(state, action){
             const allCha = action.payload
             if(allCha){
                 state.characters = allCha
             }
         },
-        getEye(state, action){
-          const eyeColor = action.payload;
-          return state.filter((character) => character.eye_color === eyeColor);
-        }
-
-
-
+        selectEyeColor: (state, action) => {
+          state.eyeFilter = action.payload;
+        },
 
     }, extraReducers: (builder) => {
         builder
@@ -90,51 +50,26 @@ export const filmSlice = createSlice({
             state.status = 'failed';
             state.error = action.error.message;
           })
-          .addCase(filterByColor.pending, (state) => {
-            state.status = "loading";
+          .addCase(getColor .pending, (state) => {
+            state.status = 'loading';
           })
-          .addCase(filterByColor.fulfilled, (state, action) => {
-            // state.status = "succeeded";
-            // state.characters = action.payload;
-
-            state.filter = action.payload;
-            if (action.payload === null) {
-              state.eyeFilter = state.data;
-            } else {
-              state.eyeFilter = state.data.map((film) => ({
-                ...film,
-                eyeFilter: film.characters.filter(
-                  (character) => character.eye_color === action.payload
-                ),
-              }));
-            }
-
-
-
-            // const eyeColor = action.payload;
-            // return state.map((film) => ({
-            //   ...film,
-            //   characters: film.characters.filter((character) => character.eye_color === eyeColor),
-            // }));
-
-            // const eyeColor = state.filterByColor 
-
-
-           
-            // const eyesFiltered = action.payload === "all" ? eyeColor : eyeColor.filter(s => s.characters.find(f=> f.eye_color === action.payload))
-            // console.log(eyesFiltered) 
-           
-            // state.filterByColor = eyesFiltered              
-            
+          .addCase(getColor.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.characters = action.payload;
           })
-          .addCase(filterByColor.rejected, (state, action) => {
-            state.status = "failed";
+          .addCase(getColor.rejected, (state, action) => {
+            state.status = 'failed';
             state.error = action.error.message;
-          });
+          })
+        
+        
+
+          
+       
       },
 })
 
-export const { getFilms, getAllCharacters, getFilmsDetail, getEye } = filmSlice.actions;
+export const { getFilms, getAllCharacters, getFilmsDetail, selectEyeColor, reset} = filmSlice.actions;
 export default filmSlice.reducer
 
 export const  getAllFilms = (obj) => async(dispatch) =>{
@@ -154,14 +89,7 @@ export const  getAllFilms = (obj) => async(dispatch) =>{
     .catch((error)=> console.log(error))
 }
 
-// export const  getDetail= (id) => async(dispatch) =>{
-//     await axios.get('https://swapi.dev/api/films/' + id)
-//     .then((response) =>{
-//     dispatch( getFilmsDetail(response.data))
-//     // dispatch(getAllCharacters(response.data.map(cha=> cha.characters)));
-//     })
-//     .catch((error)=> console.log(error))
-// }
+
 
 export const getDetails = createAsyncThunk('films/getDetails', async (id ) => {
     const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
@@ -184,79 +112,26 @@ export const getDetails = createAsyncThunk('films/getDetails', async (id ) => {
 
 
 
-
-
-  export const filterByColor = createAsyncThunk('films/filterByColor', async (eyeColor) => {
-    // const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
-    // const characters =  response.data.characters.map(e=>{
-    //   return {
-    //             eye_color: characters.data.eye_color,
-    //           }
-    // });
-
-
-    ///////////ver///////////////////////////////////
-
-    const response = await axios.get("https://swapi.dev/api/people/", {
-      params: {
-        search: "",
-        eye_color: eyeColor,
-      },
-    });
-
-
-    ////////////////////////////////////////
-
-
-    // const response = await axios.get("https://swapi.dev/api/people/");
-    // const color = response.data.characters.map(c =>{
-    //   return{
-    //     eye_color: c.eye_color
-    //   }
-    // })
-
-
-
-
-
-
-
-
-
-    // return response.data.results;
-
-
-    // const allCharacters =  await Promise.all(
-    //     charactersUrls.map(async (characterUrl) => {
-    //       const characterDetail = await axios.get(characterUrl);
-    //       return {
-    //         eye_color: characterDetail.data.eye_color,
-    //       }
+export const getColor = createAsyncThunk('films/getColor', async (id ) => {
+    const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
+    const charactersUrls =  response.data.characters;
+    const allCharacters =  await Promise.all(
+        charactersUrls.map(async (characterUrl) => {
+          const characterDetail = await axios.get(characterUrl);
+          return {
+            eye_color: characterDetail.data.eye_color
+          }
+        }))
         
-          
-       
-    //     }))
-
-    return response
-
- 
-        
-    // return response.data.results
+    return allCharacters
   });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  export const selectCharacters = (state) => {
+    if (state.films.eyeFilter) {
+      return state.films.characters.filter(
+        (character) => character.eye_color === state.films.eyeFilter
+      );
+    }
+    return state.films.characters;
+  };

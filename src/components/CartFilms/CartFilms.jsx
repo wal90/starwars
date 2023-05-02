@@ -10,7 +10,7 @@ import episode6 from "../../assets/episode6.jpg"
 import { Link } from "react-router-dom";
 import {RiMovieFill } from "react-icons/ri";
 import { BsFillCameraReelsFill } from "react-icons/bs";
-import { getAllFilms } from "../../redux/slices/filmSlice";
+import { getAllFilms  } from "../../redux/slices/filmSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 // const CartFilms = () =>{
