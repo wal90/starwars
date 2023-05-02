@@ -50,17 +50,7 @@ export const filmSlice = createSlice({
             state.status = 'failed';
             state.error = action.error.message;
           })
-          .addCase(getColor .pending, (state) => {
-            state.status = 'loading';
-          })
-          .addCase(getColor.fulfilled, (state, action) => {
-            state.status = 'succeeded';
-            state.characters = action.payload;
-          })
-          .addCase(getColor.rejected, (state, action) => {
-            state.status = 'failed';
-            state.error = action.error.message;
-          })
+         
         
         
 
