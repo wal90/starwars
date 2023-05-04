@@ -10,7 +10,8 @@
     }
 
 
-    .description{
+.description{
+    margin-top: 5rem;
     justify-content: center;
     text-align: center;
     line-height: 0;
@@ -18,54 +19,42 @@
       
     }
 
-    .description h1{
-        font-size: 4rem;
+.description h1{
+    font-size: 4rem;
      line-height: 1.2rem;
        
     }
 
-    .description p{
-        font-size: 1.2rem;
-        line-height: 0.5rem;
-        margin-bottom: 2rem;
+.description p{
+    font-size: 1.2rem;
+    line-height: 0.5rem;
+    margin-bottom: 2rem;
        
     }
-    .filter{
-        display: flex;
-        margin: 5rem;
-        justify-content: center;
-        text-align: center;
+.filter{
+    display: flex;
+    margin: 5rem;
+    justify-content: center;
+    text-align: center;
         
-    }
+}
 
 
-    .filter select{
-        padding: 8px 20px;
-        border: 1px solid rgba(54, 54, 54, 0.773);
-        cursor: pointer;
-        margin-right: 2rem;
-        /* background: red; */
-        color: #fffcfc;
+.filter select{
+    padding: 8px 20px;
+    border: 1px solid rgba(54, 54, 54, 0.773);
+    cursor: pointer;
+    margin-right: 2rem;
+    color: #fffcfc;
+    background: rgba(54, 54, 54, 0.773);
+    backdrop-filter: blur(50px);
 
-        
-
-        background: rgba(54, 54, 54, 0.773);
-        /* box-shadow: 0 25px 45px rgba(0,0,0,0.1); */
-        /* border: 1px solid rgba(250, 250, 250, 0.5);
-        border-right: 1px solid rgba(25, 82, 255, 0.2);
-        border-bottom: 1px solid rgba(255,255,255,0.2); */
-        backdrop-filter: blur(50px);
-
-
-
-
-
-    }
+}
     
-    .filter select:focus{
-        outline: none !important;
-    }
+.filter select:focus{
+    outline: none !important;
+}
     
-    .filter option{
-        font-size: 0.9rem;
-    }
+.filter option{
+    font-size: 0.9rem;
+}

@@ -12,8 +12,7 @@ import charact  from "../assets/image/characters.png";
 
 const Characters = () =>{
 
-    const dispatch = useDispatch();
-  // const characters= useSelector((state) => state.films.characters);
+  const dispatch = useDispatch();
   const characters = useSelector(selectCharacters);
   const film = useSelector((state) => state.films.data);
 

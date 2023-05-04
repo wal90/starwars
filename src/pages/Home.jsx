@@ -11,7 +11,7 @@ const Home = () =>{
                 <img src={home} alt="starWars" width={"100%"} />
             </div>
             <div className={s.text}>
-                <h3>WELCOME TO</h3>
+                <h3>WELCOME TO </h3>
                 <img src={app} alt="starWars" width={"70%"} />
                 <p>Where you can see descriptions of the movies and the characters</p>
                 <Link to="/films"><button>See List</button></Link>

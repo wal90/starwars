@@ -35,7 +35,6 @@ const Films = () =>{
                           <div key={index}>
                             <CartFilms image={film.image} title={film.title} episode={film.episode} director={film.director} url={film.url} characters={film.characters}/>
 
-                           {/* characters={film.characters.map(ch=> ch)} */}
                            
                         </div>  
                         )

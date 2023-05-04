@@ -79,6 +79,9 @@ export const { getFilms, getAllCharacters, getFilmsDetail, selectEyeColor, reset
 export default filmSlice.reducer
 
 export const  getAllFilms = (obj) => async(dispatch) =>{
+
+
+  try {
     await axios.get("https://swapi.dev/api/films/", obj)
     .then((response) =>{
        dispatch( getFilms(response.data.results.map(r=>{
@@ -90,24 +93,34 @@ export const  getAllFilms = (obj) => async(dispatch) =>{
 
         }
        })))
-        // dispatch(getAllCharacters(response.data.results.map(cha=> cha.url)));
+
     })
     .catch((error)=> console.log(error))
+  } catch (error) {
+    return ({error: "Film not found" })
+  }
+    
 }
 
 export const getData = createAsyncThunk('films/getData', async (id ) => {
-  const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
+  try {
+    const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
   return{
     nameMovie: response.data.title,
     episode: response.data.episode_id,
     director: response.data.director
+  } 
+  } catch (error) {
+    return ({error: "Data film not found" })
   }
+ 
 
 });
 
 
 export const getDetails = createAsyncThunk('films/getDetails', async (id ) => {
-    const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
+  try {
+      const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
     const charactersUrls =  response.data.characters;
     const allCharacters =  await Promise.all(
         charactersUrls.map(async (characterUrl) => {
@@ -123,12 +136,18 @@ export const getDetails = createAsyncThunk('films/getDetails', async (id ) => {
         }))
         
     return allCharacters
+  } catch (error) {
+    return ({error: "Character not found" })
+  }
+  
   });
 
 
 
 export const getColor = createAsyncThunk('films/getColor', async (id ) => {
-    const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
+
+  try {
+     const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
     const charactersUrls =  response.data.characters;
     const allCharacters =  await Promise.all(
         charactersUrls.map(async (characterUrl) => {
@@ -139,13 +158,19 @@ export const getColor = createAsyncThunk('films/getColor', async (id ) => {
         }))
         
     return allCharacters
+  } catch (error) {
+    return ({error: "Character eye color not found" })
+  }
+   
   });
 
 
 
 
   export const selectCharacters = (state) => {
-    const { eyeFilter, gender } = state.films;
+
+    try {
+      const { eyeFilter, gender } = state.films;
   
     if (eyeFilter && gender) {
       return state.films.characters.filter(
@@ -163,6 +188,10 @@ export const getColor = createAsyncThunk('films/getColor', async (id ) => {
     } else {
       return state.films.characters;
     }
+    } catch (error) {
+      return ({error: "Character gender not found" })
+    }
+    
   };
 
 

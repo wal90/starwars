@@ -1,5 +1,5 @@
 import React from "react";
-import s from "../../styles/loading.module.css"
+import s from "./loading.module.css"
 
 
 const Loading = () =>{
@@ -7,7 +7,6 @@ const Loading = () =>{
      
         <div className={s.loader}></div>
            
-    
     )
 }
 

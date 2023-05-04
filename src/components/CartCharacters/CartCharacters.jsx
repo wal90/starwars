@@ -1,7 +1,7 @@
 import React from "react";
 import { FaRegEye } from "react-icons/fa";
 import { SiMicrogenetics } from "react-icons/si";
-import s from "../../styles/cartChar.module.css"
+import s from "./cartChar.module.css"
 
 
 
