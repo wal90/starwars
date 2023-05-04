@@ -3,6 +3,22 @@ import { NavLink } from "react-router-dom";
 import logo from "../../assets/image/sw_logoNav.png"
 import s from "../../styles/navBar.module.css"
 
+
+const nav__links =[
+    {
+        path: '',
+        display:'Home'
+    },
+    {
+        path: 'films',
+        display:'Films'
+    },
+    {
+        path: 'about',
+        display:'About'
+    }
+]
+
 const NavBar = ()=>{
     return(
         <>
@@ -20,9 +36,20 @@ const NavBar = ()=>{
 
             <div className={s.content}>
                 <ul >
-                <li><NavLink to={"/"}>Home</NavLink></li>
+                {
+                            nav__links.map((item, index)=>(
+                              <li key={index}>
+                                <NavLink to={item.path}>{item.display}</NavLink>
+                            </li>  
+                            ))
+                           }
+
+                {/* <li><NavLink to={"/"}>Home</NavLink></li>
                 <li><NavLink to={"/films"}>Films</NavLink></li>
-                {/* <li><NavLink to={"/characters"}>Characters</NavLink></li> */}
+                <li><NavLink to={"/about"}>About</NavLink></li> */}
+               
+
+
                 </ul>  
    
 

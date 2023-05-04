@@ -51,22 +51,39 @@ margin-left: auto;
 
 } 
 
+
+ul .nav__item{
+  color:red
+}
 .nav__active{
   font-weight: 700 !important;
+  color:red
 }
 
- .content ul li{
-    font-size: 1.2rem;
-    /* font-family: 'M PLUS Code Latin', sans-serif; */
-    text-transform: uppercase;
-    letter-spacing: 0.3rem;
-    text-align: right;
-    padding: 0rem 2rem;  
-    /* float: right; */
-    
-    /* justify-content: flex-end;   */
+.content ul li{
+  font-size: 1.2rem;
+  /* font-family: 'M PLUS Code Latin', sans-serif; */
+  text-transform: uppercase;
+  letter-spacing: 0.3rem;
+  text-align: right;
+  padding: 0rem 2rem;  
+  /* float: right; */
+  
+  /* justify-content: flex-end;   */
 
 
-    
+  
 
 }
+
+
+
+
+/* a:active:before{
+color:red;
+background-color: blue;
+
+
+  
+
+} */

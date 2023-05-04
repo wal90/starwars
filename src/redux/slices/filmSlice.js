@@ -5,7 +5,9 @@ const initialState = {
     list: [],
     characters: [],
     eyeFilter:"",
+    gender:"",
     detail:[],
+    data:[],
     film: null, 
     status: 'idle', 
     error: null
@@ -36,6 +38,9 @@ export const filmSlice = createSlice({
         selectEyeColor: (state, action) => {
           state.eyeFilter = action.payload;
         },
+        selectGender: (state, action) => {
+          state.gender = action.payload;
+        },
 
     }, extraReducers: (builder) => {
         builder
@@ -50,6 +55,17 @@ export const filmSlice = createSlice({
             state.status = 'failed';
             state.error = action.error.message;
           })
+          .addCase(getData .pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(getData.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.data = action.payload;
+          })
+          .addCase(getData.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          })
          
         
         
@@ -59,7 +75,7 @@ export const filmSlice = createSlice({
       },
 })
 
-export const { getFilms, getAllCharacters, getFilmsDetail, selectEyeColor, reset} = filmSlice.actions;
+export const { getFilms, getAllCharacters, getFilmsDetail, selectEyeColor, reset, selectGender} = filmSlice.actions;
 export default filmSlice.reducer
 
 export const  getAllFilms = (obj) => async(dispatch) =>{
@@ -79,6 +95,15 @@ export const  getAllFilms = (obj) => async(dispatch) =>{
     .catch((error)=> console.log(error))
 }
 
+export const getData = createAsyncThunk('films/getData', async (id ) => {
+  const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
+  return{
+    nameMovie: response.data.title,
+    episode: response.data.episode_id,
+    director: response.data.director
+  }
+
+});
 
 
 export const getDetails = createAsyncThunk('films/getDetails', async (id ) => {
@@ -117,11 +142,45 @@ export const getColor = createAsyncThunk('films/getColor', async (id ) => {
   });
 
 
+
+
   export const selectCharacters = (state) => {
-    if (state.films.eyeFilter) {
+    const { eyeFilter, gender } = state.films;
+  
+    if (eyeFilter && gender) {
       return state.films.characters.filter(
-        (character) => character.eye_color === state.films.eyeFilter
+        (character) =>
+          character.eye_color === eyeFilter && character.gender === gender
       );
+    } else if (eyeFilter) {
+      return state.films.characters.filter(
+        (character) => character.eye_color === eyeFilter
+      );
+    } else if (gender) {
+      return state.films.characters.filter(
+        (character) => character.gender === gender
+      );
+    } else {
+      return state.films.characters;
     }
-    return state.films.characters;
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
