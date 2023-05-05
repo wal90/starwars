@@ -1,16 +1,16 @@
 import React from "react";
-import s from "../styles/home.module.css"
+import "../styles/home.css"
 import home from "../assets/image/home.png"
 import app from "../assets/image/sw_home.png"
 import { Link } from "react-router-dom";
 
 const Home = () =>{
     return (
-        <div className={s.home__container}>
+        <div className="home__container">
             <div >
                 <img src={home} alt="starWars" width={"100%"} />
             </div>
-            <div className={s.text}>
+            <div className="text">
                 <h3>WELCOME TO </h3>
                 <img src={app} alt="starWars" width={"70%"} />
                 <p>Where you can see descriptions of the movies and the characters</p>

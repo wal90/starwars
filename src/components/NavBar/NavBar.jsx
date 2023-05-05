@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/image/sw_logoNav.png"
-import s from "./navBar.module.css";
-import { GiHamburgerMenu } from "react-icons/gi";
+ import logo from "../../assets/image/sw_logoNav.png"
+import "./navBar.css";
+
 
 
 const nav__links =[
@@ -20,30 +20,26 @@ const nav__links =[
     }
 ]
 
+
+
+    
+
+
 const NavBar = ()=>{
-
-
-    const menuRef = useRef(null);
-
-    const menuToggle = () => menuRef.current.classList.toggle("active__menu")
+const [isOpen, setIsOpen]=useState(false); 
 
     return(
         <>
-        <div>
-           <nav>
-
-            
-
-            
 
 
-            <div className={s.logo}>
-                <img src={logo} alt="logo" />
-            </div>
+<div className="navbar">
+    <div className="nav_logo"> 
 
-         
-              <div className={s.content} >
-                <ul ref={menuRef} onClick={menuToggle}>
+        <img src={logo} alt="logo" />
+    </div>
+    <div className={`nav_items ${isOpen && "open"}`}>
+
+        <ul >
                 {
                             nav__links.map((item, index)=>(
                               <li key={index}>
@@ -51,22 +47,21 @@ const NavBar = ()=>{
                             </li>  
                             ))
                            }
+        </ul>  
 
-                </ul> 
-            </div>
-             
-            
+    </div>
+    <div className={` ${isOpen && "open"}`} onClick ={()=> setIsOpen(!isOpen)}>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 
-           
-            <div className={s.mobile__menu} onClick={menuToggle}> 
-                        <GiHamburgerMenu/>     
-            </div>
-           
-        </nav> 
-        </div>
+</div>
+
         
         </>
     )
 }
 
 export default NavBar;
+

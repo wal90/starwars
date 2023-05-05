@@ -1,10 +1,8 @@
 import React from "react";
-import s from "./cartFilm.module.css"
+import  "./cartFilm.css"
 import { Link } from "react-router-dom";
 import {RiMovieFill } from "react-icons/ri";
 import { BsFillCameraReelsFill } from "react-icons/bs";
-
-
 
 
 
@@ -16,11 +14,11 @@ const CartFilms = ({title, director, episode, url}) =>{
     return(
        
               
-                            <div className={s.contain}>
+                            <div className="contain">
                                 <h2>{title}</h2>
                                 <p><RiMovieFill/> Episode: {episode}</p> 
                                 <p><BsFillCameraReelsFill/> Director: {director}</p>
-                                <Link to={"/characters/" + id }><button className={s.charBtn}>Characters</button></Link> 
+                                <Link to={"/characters/" + id }><button className="charBtn">Characters</button></Link> 
                       
                                 
                             </div>

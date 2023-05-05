@@ -1,5 +1,5 @@
 import React from "react";
-import s from "../styles/about.module.css"
+import "../styles/about.css"
 import about from "../assets/image/about.png"
 import { IoLogoGithub } from "react-icons/io";
 import { BsLinkedin, BsInstagram, BsWhatsapp  } from 'react-icons/bs';
@@ -9,14 +9,14 @@ import { TfiWorld} from "react-icons/tfi";
 
 const About = () =>{
     return (
-        <div className={s.about__container}>
+        <div className="about__container">
            
-            <div className={s.text}>
+            <div className="text">
                 <p>Star Wars App By</p>
                 <h1>WALTER MARTINEZ</h1>
                 
                 <h5>Full Stack Developer - Graphic designer</h5>
-                <div className={s.socials}>
+                <div className="socials">
                 <a href="https://www.linkedin.com/in/walter-martinez-71024529/" target= "_blank" rel="noreferrer"><BsLinkedin/></a>
                 <a href="https://github.com/wal90" target= "_blank" rel="noreferrer"><IoLogoGithub/></a>
                 <a href="https://www.instagram.com/walteromartinez/" target="_blank" rel="noreferrer"><BsInstagram/></a>

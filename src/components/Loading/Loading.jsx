@@ -1,11 +1,11 @@
 import React from "react";
-import s from "./loading.module.css"
+import  "./loading.css"
 
 
 const Loading = () =>{
     return (
      
-        <div className={s.loader}></div>
+        <div className="loader"></div>
            
     )
 }

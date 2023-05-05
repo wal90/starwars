@@ -2,7 +2,7 @@ import React,{ useEffect} from "react";
 import CartFilms from "../components/CartFilms/CartFilms";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllFilms } from "../redux/slices/filmSlice";
-import s from "../styles/cartsFilm.module.css"
+import "../styles/cartsFilm.css"
 import Loading from "../components/Loading/Loading";
 
 
@@ -26,7 +26,7 @@ const Films = () =>{
 
                 films.length ?
 
-                <div className={s.allCards}>
+                <div className="allCards">
                 {   
 
                     

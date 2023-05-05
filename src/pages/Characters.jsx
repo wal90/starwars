@@ -2,9 +2,8 @@ import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {  getDetails, selectEyeColor, selectCharacters, selectGender, getData} from "../redux/slices/filmSlice";
 import CartCharacters from "../components/CartCharacters/CartCharacters";
-import charact  from "../assets/image/characters.png";
  import { useParams } from "react-router-dom";
- import s from "../styles/characters.module.css"
+ import "../styles/characters.css"
  import Loading from "../components/Loading/Loading.jsx";
  import { Link } from "react-router-dom";
  import { IoChevronBackOutline} from "react-icons/io5";
@@ -39,7 +38,7 @@ useEffect(()=>{
     return (
         <div >
 
-          <div  className={s.description}> 
+          <div  className="description"> 
             <h1>{film.nameMovie}</h1>
             <p>Director: {film.director}</p>
             <p>Episode: {film.episode}</p>
@@ -48,7 +47,7 @@ useEffect(()=>{
           </div>
 
         
-<div className={s.filter}>
+<div className="filter">
   <div>
 
    
@@ -97,7 +96,7 @@ useEffect(()=>{
 
   characters.length ?
 
-<div className={s.allCardsCha}>
+<div className="allCardsCha">
      {
 
 
